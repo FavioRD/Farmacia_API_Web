@@ -1,0 +1,25 @@
+﻿@model IEnumerable<FarmaciaWeb.Models.Salida>
+
+<h2>Listado de Salidas</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-2">Registrar Salida</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ProductoId</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductoId</td>
+                <td>@item.Cantidad</td>
+                <td>@item.FechaSalida</td>
+            </tr>
+        }
+    </tbody>
+</table>

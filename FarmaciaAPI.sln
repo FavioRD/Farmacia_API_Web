@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmaciaAPI", "FarmaciaAPI\FarmaciaAPI.csproj", "{21C0C4D2-448B-4B3C-B170-884D0ED6F80B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmaciaWeb", "FarmaciaWeb\FarmaciaWeb.csproj", "{A4847AB0-9BBC-4644-AAEE-79F7D65ADF21}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21C0C4D2-448B-4B3C-B170-884D0ED6F80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21C0C4D2-448B-4B3C-B170-884D0ED6F80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21C0C4D2-448B-4B3C-B170-884D0ED6F80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21C0C4D2-448B-4B3C-B170-884D0ED6F80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4847AB0-9BBC-4644-AAEE-79F7D65ADF21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4847AB0-9BBC-4644-AAEE-79F7D65ADF21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4847AB0-9BBC-4644-AAEE-79F7D65ADF21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4847AB0-9BBC-4644-AAEE-79F7D65ADF21}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F7C425A-B07E-4987-9B66-A72DE6F6A4B3}
+	EndGlobalSection
+EndGlobal
