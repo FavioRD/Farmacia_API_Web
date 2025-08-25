@@ -1,8 +1,8 @@
-﻿using FarmaciaApi.Services;
+﻿using FarmaciaAPI.Services;
 using FarmaciaAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FarmaciaApi.Controllers
+namespace FarmaciaAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -17,7 +17,18 @@ namespace FarmaciaApi.Controllers
 
         // GET: api/Salidas
         [HttpGet]
-        public async Task<IActionResult> Get() => Ok(await _service.Listar());
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var salidas = await _service.Listar();
+                return Ok(salidas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "Error interno del servidor", detalle = ex.Message });
+            }
+        }
 
         // GET: api/Salidas/5
         [HttpGet("{id}")]
@@ -29,11 +40,21 @@ namespace FarmaciaApi.Controllers
         }
 
         // POST: api/Salidas
-        [HttpPost]  
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] Salida salida)
         {
-            await _service.Registrar(salida.ProductoId, salida.Cantidad);
-            return Ok(new { mensaje = "Salida registrada correctamente" });
+            try
+            {
+                if (salida.Cantidad <= 0)
+                    return BadRequest("La cantidad debe ser mayor a 0");
+
+                await _service.Registrar(salida.ProductoId, salida.Cantidad);
+                return Ok(new { mensaje = "Salida registrada correctamente" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
         // PUT: api/Salidas/5

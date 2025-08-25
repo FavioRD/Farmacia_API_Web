@@ -1,28 +1,54 @@
 ﻿@model FarmaciaWeb.Models.Producto
 
-<h2>Nuevo Producto</h2>
+@{
+    ViewBag.Title = "Nuevo Producto";
+}
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label>Nombre</label>
-        <input asp-for="Nombre" class="form-control" />
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-success text-white text-center rounded-top-4">
+                    <h3 class="mb-0 fw-bold">Nuevo Producto</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label fw-semibold"></label>
+                            <input asp-for="Nombre" class="form-control rounded-pill shadow-sm" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Descripcion" class="form-label fw-semibold"></label>
+                            <input asp-for="Descripcion" class="form-control rounded-pill shadow-sm" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Precio" class="form-label fw-semibold"></label>
+                            <input asp-for="Precio" class="form-control rounded-pill shadow-sm" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Stock" class="form-label fw-semibold"></label>
+                            <input asp-for="Stock" class="form-control rounded-pill shadow-sm" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FechaExpiracion" class="form-label fw-semibold"></label>
+                            <input asp-for="FechaExpiracion" type="date" class="form-control rounded-pill shadow-sm" />
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-secondary btn-lg rounded-pill shadow-sm">
+                                Volver
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg rounded-pill shadow-sm">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Descripción</label>
-        <input asp-for="Descripcion" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Precio</label>
-        <input asp-for="Precio" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Stock</label>
-        <input asp-for="Stock" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Fecha Expiración</label>
-        <input asp-for="FechaExpiracion" type="date" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-success mt-2">Guardar</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Volver</a>
-</form>
+</div>

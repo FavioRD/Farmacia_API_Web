@@ -1,8 +1,8 @@
-﻿using FarmaciaApi.Services;
+﻿using FarmaciaAPI.Services;
 using FarmaciaAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FarmaciaApi.Controllers
+namespace FarmaciaAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

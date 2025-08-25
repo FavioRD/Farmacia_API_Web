@@ -2,25 +2,56 @@
     ViewData["Title"] = "Farmacia - Inicio";
 }
 
-<div class="container mt-5 text-center">
-    <h1 class="display-4 mb-4">Bienvenido a FarmaciaWeb</h1>
-    <p class="lead">Seleccione una opción para comenzar:</p>
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">Bienvenido a CamiFarma</h1>
+        <p class="lead text-muted">Seleccione una opción para comenzar:</p>
+    </div>
 
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center g-4">
+        <!-- Gestión de Productos -->
         <div class="col-md-3">
-            <a href="~/Productos" class="btn btn-primary btn-lg w-100 mb-3">
-                Gestión de Productos
-            </a>
+            <div class="card shadow-lg border-0 rounded-4 h-100">
+                <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png"
+                     class="card-img-top p-4" alt="Productos" style="height:150px; object-fit:contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold text-dark">Gestión de Productos</h5>
+                    <p class="card-text text-muted">Administre los productos disponibles en el sistema.</p>
+                    <a asp-controller="Productos" asp-action="Index" class="btn btn-primary w-100 rounded-pill">
+                        Ir a Productos
+                    </a>
+                </div>
+            </div>
         </div>
+
+        <!-- Gestión de Salidas -->
         <div class="col-md-3">
-            <a href="~/Salidas" class="btn btn-success btn-lg w-100 mb-3">
-                Gestión de Salidas
-            </a>
+            <div class="card shadow-lg border-0 rounded-4 h-100">
+                <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
+                     class="card-img-top p-4" alt="Salidas" style="height:150px; object-fit:contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold text-dark">Gestión de Salidas</h5>
+                    <p class="card-text text-muted">Controle y registre las salidas de productos.</p>
+                    <a asp-controller="Salidas" asp-action="Index" class="btn btn-success w-100 rounded-pill">
+                        Ir a Salidas
+                    </a>
+                </div>
+            </div>
         </div>
+
+        <!-- Gestión de Entradas -->
         <div class="col-md-3">
-            <a href="~/Entradas" class="btn btn-warning btn-lg w-100 mb-3">
-                Gestión de Entradas
-            </a>
+            <div class="card shadow-lg border-0 rounded-4 h-100">
+                <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png"
+                     class="card-img-top p-4" alt="Entradas" style="height:150px; object-fit:contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold text-dark">Gestión de Entradas</h5>
+                    <p class="card-text text-muted">Registre y supervise las entradas de productos.</p>
+                    <a asp-controller="Entradas" asp-action="Index" class="btn btn-warning w-100 rounded-pill">
+                        Ir a Entradas
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,25 +1,40 @@
 ﻿@model IEnumerable<FarmaciaWeb.Models.Salida>
 
-<h2>Listado de Salidas</h2>
+@{
+    ViewBag.Title = "Listado de Salidas";
+}
 
-<a asp-action="Create" class="btn btn-primary mb-2">Registrar Salida</a>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white text-center rounded-top-4">
+            <h3 class="mb-0 fw-bold">Listado de Salidas</h3>
+        </div>
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-end mb-3">
+                <a asp-action="Create" class="btn btn-success btn-lg rounded-pill shadow-sm">
+                    Registrar Salida
+                </a>
+            </div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ProductoId</th>
-            <th>Cantidad</th>
-            <th>Fecha</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.ProductoId</td>
-                <td>@item.Cantidad</td>
-                <td>@item.FechaSalida</td>
-            </tr>
-        }
-    </tbody>
-</table>
+            <table class="table table-hover table-striped align-middle shadow-sm rounded-3">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Producto?.Nombre</td>
+                            <td>@item.Cantidad</td>
+                            <td>@item.FechaSalida.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

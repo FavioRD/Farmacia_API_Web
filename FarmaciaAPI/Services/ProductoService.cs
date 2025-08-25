@@ -2,7 +2,7 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace FarmaciaApi.Services
+namespace FarmaciaAPI.Services
 {
     public class ProductoService
     {

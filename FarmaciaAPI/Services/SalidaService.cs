@@ -2,17 +2,18 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace FarmaciaApi.Services
+namespace FarmaciaAPI.Services
 {
     public class SalidaService
     {
         private readonly string _connectionString;
+        private readonly ILogger<SalidaService> _logger;
 
-        public SalidaService(IConfiguration config)
+        public SalidaService(IConfiguration config, ILogger<SalidaService> logger)
         {
             _connectionString = config.GetConnectionString("FarmaciaConnection");
+            _logger = logger;
         }
-
 
         // Listar 
         public async Task<List<Salida>> Listar()

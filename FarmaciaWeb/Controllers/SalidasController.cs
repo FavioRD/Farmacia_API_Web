@@ -1,5 +1,6 @@
 ﻿using FarmaciaWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net.Http.Json;
 
 namespace FarmaciaWeb.Controllers
@@ -17,11 +18,27 @@ namespace FarmaciaWeb.Controllers
         public async Task<IActionResult> Index()
         {
             var salidas = await _httpClient.GetFromJsonAsync<List<Salida>>("api/Salidas");
+            var productos = await _httpClient.GetFromJsonAsync<List<Producto>>("api/Productos");
+
+            // Vincular Producto con cada salida
+            foreach (var salida in salidas)
+            {
+                salida.Producto = productos.FirstOrDefault(p => p.Id == salida.ProductoId);
+            }
+
             return View(salidas);
         }
 
+
         // GET: Salidas/Create
-        public IActionResult Create() => View();
+        public async Task<IActionResult> Create()
+        {
+            var productos = await _httpClient.GetFromJsonAsync<List<Producto>>("api/Productos");
+
+            ViewBag.Productos = new SelectList(productos, "Id", "Nombre");
+
+            return View();
+        }
 
         // POST: Salidas/Create
         [HttpPost]
@@ -78,5 +95,7 @@ namespace FarmaciaWeb.Controllers
             ModelState.AddModelError("", "Error al eliminar salida");
             return RedirectToAction(nameof(Index));
         }
+
+
     }
 }
