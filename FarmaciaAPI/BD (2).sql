@@ -13,13 +13,9 @@ CREATE TABLE Productos (
     FechaExpiracion DATE
 );
 
-CREATE TABLE Salidas (
-    Id INT PRIMARY KEY IDENTITY,
-    ProductoId INT FOREIGN KEY REFERENCES Productos(Id),
-    Cantidad INT NOT NULL,
-    FechaSalida DATETIME DEFAULT GETDATE()
-);
 
+
+/*PROCEDIMEINTOS PRODUCTOS*/
 -- Insertar --
 CREATE PROCEDURE USP_InsertarProducto
     @Nombre NVARCHAR(100),
@@ -90,7 +86,17 @@ EXEC USP_InsertarProducto 'Ácido Fólico 5mg', 'Suplemento vitamínico', 1.25, 250
 EXEC USP_InsertarProducto 'Diclofenaco 50mg', 'Analgésico y antiinflamatorio', 2.40, 160, '2025-10-20';
 EXEC USP_InsertarProducto 'Ranitidina 150mg', 'Reductor de ácido estomacal', 2.10, 70, '2025-09-01';
 
+
 ----SALIDAS-----
+
+CREATE TABLE Salidas (
+    Id INT PRIMARY KEY IDENTITY,
+    ProductoId INT FOREIGN KEY REFERENCES Productos(Id),
+    Cantidad INT NOT NULL,
+    FechaSalida DATETIME DEFAULT GETDATE()
+);
+
+-----/*PROCEDIMIENTOS SALIDAS*/------
 
 --registrar
 CREATE PROCEDURE USP_RegistrarSalida
@@ -119,33 +125,59 @@ BEGIN
 END
 
 
-----reporte
-CREATE PROCEDURE USP_SalidasDiarias
+-- Listar todas las salidas
+CREATE PROCEDURE USP_ListarSalidas
 AS
 BEGIN
     SELECT 
-        P.Nombre,
-        SUM(S.Cantidad) AS TotalSalidas,
-        CONVERT(DATE, S.FechaSalida) AS Fecha
+        S.Id,
+        S.ProductoId,
+        S.Cantidad,
+        S.FechaSalida
     FROM Salidas S
-    INNER JOIN Productos P ON P.Id = S.ProductoId
-    WHERE CONVERT(DATE, S.FechaSalida) = CONVERT(DATE, GETDATE())
-    GROUP BY P.Nombre, CONVERT(DATE, S.FechaSalida);
+    ORDER BY S.FechaSalida DESC;
 END
+GO
 
-
---- reporte por fechas
-CREATE PROCEDURE USP_SalidasPorRango
-    @FechaInicio DATE,
-    @FechaFin DATE
+-- Obtener salida por Id
+CREATE PROCEDURE USP_ObtenerSalidaPorId
+    @Id INT
 AS
 BEGIN
     SELECT 
-        P.Nombre,
-        SUM(S.Cantidad) AS TotalSalidas,
-        CONVERT(DATE, S.FechaSalida) AS Fecha
+        S.Id,
+        S.ProductoId,
+        S.Cantidad,
+        S.FechaSalida
     FROM Salidas S
-    INNER JOIN Productos P ON P.Id = S.ProductoId
-    WHERE S.FechaSalida BETWEEN @FechaInicio AND @FechaFin
-    GROUP BY P.Nombre, CONVERT(DATE, S.FechaSalida);
+    WHERE S.Id = @Id;
 END
+GO
+
+-- Actualizar salida
+CREATE PROCEDURE USP_ActualizarSalida
+    @Id INT,
+    @ProductoId INT,
+    @Cantidad INT,
+    @FechaSalida DATETIME
+AS
+BEGIN
+    UPDATE Salidas
+    SET ProductoId = @ProductoId,
+        Cantidad = @Cantidad,
+        FechaSalida = @FechaSalida
+    WHERE Id = @Id;
+END
+GO
+
+-- Eliminar salida
+CREATE PROCEDURE USP_EliminarSalida
+    @Id INT
+AS
+BEGIN
+    DELETE FROM Salidas
+    WHERE Id = @Id;
+END
+GO
+
+
