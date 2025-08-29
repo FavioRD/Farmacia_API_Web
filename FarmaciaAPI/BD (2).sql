@@ -181,3 +181,107 @@ END
 GO
 
 
+CREATE TABLE Ingresos (
+    Id INT PRIMARY KEY IDENTITY,
+    ProductoId INT FOREIGN KEY REFERENCES Productos(Id),
+    Cantidad INT NOT NULL,
+    FechaIngreso DATETIME DEFAULT GETDATE()
+);
+GO
+
+CREATE PROCEDURE USP_RegistrarIngreso
+    @ProductoId INT,
+    @Cantidad INT
+AS
+BEGIN
+    -- Insertar en tabla Ingresos
+    INSERT INTO Ingresos (ProductoId, Cantidad)
+    VALUES (@ProductoId, @Cantidad);
+
+    -- Actualizar stock (sumar)
+    UPDATE Productos
+    SET Stock = Stock + @Cantidad
+    WHERE Id = @ProductoId;
+END
+GO
+
+
+CREATE PROCEDURE USP_ListarIngresos
+AS
+BEGIN
+    SELECT 
+        I.Id,
+        I.ProductoId,
+        P.Nombre AS Producto,
+        I.Cantidad,
+        I.FechaIngreso
+    FROM Ingresos I
+    INNER JOIN Productos P ON P.Id = I.ProductoId
+    ORDER BY I.FechaIngreso DESC;
+END
+GO
+
+CREATE PROCEDURE USP_ObtenerIngresoPorId
+    @Id INT
+AS
+BEGIN
+    SELECT 
+        I.Id,
+        I.ProductoId,
+        P.Nombre AS Producto,
+        I.Cantidad,
+        I.FechaIngreso
+    FROM Ingresos I
+    INNER JOIN Productos P ON P.Id = I.ProductoId
+    WHERE I.Id = @Id;
+END
+GO
+
+CREATE PROCEDURE USP_ActualizarIngreso
+    @Id INT,
+    @ProductoId INT,
+    @Cantidad INT,
+    @FechaIngreso DATETIME
+AS
+BEGIN
+    DECLARE @CantidadAnterior INT;
+
+    -- Obtener cantidad anterior
+    SELECT @CantidadAnterior = Cantidad FROM Ingresos WHERE Id = @Id;
+
+    -- Ajustar stock (restar lo anterior, sumar lo nuevo)
+    UPDATE Productos
+    SET Stock = Stock - @CantidadAnterior + @Cantidad
+    WHERE Id = @ProductoId;
+
+    -- Actualizar ingreso
+    UPDATE Ingresos
+    SET ProductoId = @ProductoId,
+        Cantidad = @Cantidad,
+        FechaIngreso = @FechaIngreso
+    WHERE Id = @Id;
+END
+GO
+
+CREATE PROCEDURE USP_EliminarIngreso
+    @Id INT
+AS
+BEGIN
+    DECLARE @ProductoId INT, @Cantidad INT;
+
+    -- Obtener datos del ingreso
+    SELECT @ProductoId = ProductoId, @Cantidad = Cantidad
+    FROM Ingresos
+    WHERE Id = @Id;
+
+    -- Restar del stock
+    UPDATE Productos
+    SET Stock = Stock - @Cantidad
+    WHERE Id = @ProductoId;
+
+    -- Eliminar ingreso
+    DELETE FROM Ingresos
+    WHERE Id = @Id;
+END
+GO
+
