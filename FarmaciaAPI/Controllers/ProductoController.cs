@@ -1,4 +1,4 @@
-﻿using FarmaciaAPI.Services;
+﻿using FarmaciaAPI.IServices;
 using FarmaciaAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +8,9 @@ namespace FarmaciaAPI.Controllers
     [Route("api/[controller]")]
     public class ProductosController : ControllerBase
     {
-        private readonly ProductoService _service;
+        private readonly IProductoService _service;
 
-        public ProductosController(ProductoService service)
+        public ProductosController(IProductoService service)
         {
             _service = service;
         }

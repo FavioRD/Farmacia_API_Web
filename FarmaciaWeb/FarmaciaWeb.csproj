@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FarmaciaAPI\FarmaciaAPI.csproj" />
   </ItemGroup>
 
 </Project>

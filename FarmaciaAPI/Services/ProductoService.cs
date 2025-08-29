@@ -1,10 +1,11 @@
-﻿using FarmaciaAPI.Models;
+﻿using System.Data;
+using FarmaciaAPI.IServices;
+using FarmaciaAPI.Models;
 using Microsoft.Data.SqlClient;
-using System.Data;
 
 namespace FarmaciaAPI.Services
 {
-    public class ProductoService
+    public class ProductoService : IProductoService
     {
         private readonly string _connectionString;
 

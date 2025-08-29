@@ -1,11 +1,12 @@
-﻿using FarmaciaAPI.Services;
+﻿using FarmaciaAPI.IServices;
+using FarmaciaAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Registrar ambos servicios
-builder.Services.AddScoped<ProductoService>();
-builder.Services.AddScoped<SalidaService>();
-
+builder.Services.AddScoped<IProductoService, ProductoService>();
+builder.Services.AddScoped<ISalidaService, SalidaService>();
+builder.Services.AddScoped<IEntradasService, EntradasService>();
 
 // Registrar IConfiguration y ILogger
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);

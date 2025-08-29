@@ -1,10 +1,11 @@
-﻿using FarmaciaAPI.Models;
+﻿using System.Data;
+using FarmaciaAPI.IServices;
+using FarmaciaAPI.Models;
 using Microsoft.Data.SqlClient;
-using System.Data;
 
 namespace FarmaciaAPI.Services
 {
-    public class SalidaService
+    public class SalidaService : ISalidaService
     {
         private readonly string _connectionString;
         private readonly ILogger<SalidaService> _logger;
@@ -18,25 +19,35 @@ namespace FarmaciaAPI.Services
         // Listar 
         public async Task<List<Salida>> Listar()
         {
-            var lista = new List<Salida>();
-            using (var con = new SqlConnection(_connectionString))
-            using (var cmd = new SqlCommand("USP_ListarSalidas", con))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                await con.OpenAsync();
-                var reader = await cmd.ExecuteReaderAsync();
-                while (await reader.ReadAsync())
+
+
+                var lista = new List<Salida>();
+                using (var con = new SqlConnection(_connectionString))
+                using (var cmd = new SqlCommand("USP_ListarSalidas", con))
                 {
-                    lista.Add(new Salida
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    await con.OpenAsync();
+                    var reader = await cmd.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
                     {
-                        Id = reader.GetInt32(0),
-                        ProductoId = reader.GetInt32(1),
-                        Cantidad = reader.GetInt32(2),
-                        FechaSalida = reader.GetDateTime(3)
-                    });
+                        lista.Add(new Salida
+                        {
+                            Id = reader.GetInt32(0),
+                            ProductoId = reader.GetInt32(1),
+                            Cantidad = reader.GetInt32(2),
+                            FechaSalida = reader.GetDateTime(3)
+                        });
+                    }
                 }
+
+                return lista;
             }
-            return lista;
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         // Obtener por Id
